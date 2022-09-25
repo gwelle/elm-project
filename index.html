@@ -6145,7 +6145,9 @@ var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Movies$subscriptions = function (_v0) {
 	return $elm$core$Platform$Sub$none;
 };
-var $author$project$Movies$Failure = {$: 'Failure'};
+var $author$project$Movies$Failure = function (a) {
+	return {$: 'Failure', a: a};
+};
 var $author$project$Movies$Success = function (a) {
 	return {$: 'Success', a: a};
 };
@@ -6160,17 +6162,61 @@ var $author$project$Movies$update = F2(
 				$author$project$Movies$Success(data),
 				$elm$core$Platform$Cmd$none);
 		} else {
-			return _Utils_Tuple2($author$project$Movies$Failure, $elm$core$Platform$Cmd$none);
+			var error = result.a;
+			return _Utils_Tuple2(
+				$author$project$Movies$Failure(error),
+				$elm$core$Platform$Cmd$none);
 		}
 	});
-var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$pre = _VirtualDom_node('pre');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Movies$buildErrorMessage = function (httpError) {
+	switch (httpError.$) {
+		case 'BadUrl':
+			var message = httpError.a;
+			return $elm$html$Html$text(message);
+		case 'Timeout':
+			return $elm$html$Html$text('Server is taking too long to respond. Please try again later.');
+		case 'NetworkError':
+			return $elm$html$Html$text('Unable to reach server.');
+		case 'BadStatus':
+			var statusCode = httpError.a;
+			return $elm$html$Html$text(
+				'Request failed with status code: ' + $elm$core$String$fromInt(statusCode));
+		default:
+			var message = httpError.a;
+			return $elm$html$Html$text(message);
+	}
+};
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$h1 = _VirtualDom_node('h1');
+var $elm$html$Html$pre = _VirtualDom_node('pre');
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Movies$view = function (model) {
 	switch (model.$) {
 		case 'Failure':
-			return $elm$html$Html$text('Error, when loading data.');
+			var error = model.a;
+			return A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						A2($elm$html$Html$Attributes$style, 'color', 'red')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$h1,
+						_List_fromArray(
+							[
+								A2($elm$html$Html$Attributes$style, 'color', 'red')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Error :  ')
+							])),
+						$author$project$Movies$buildErrorMessage(error)
+					]));
 		case 'Loading':
 			return $elm$html$Html$text('Loading...');
 		default:

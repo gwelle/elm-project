@@ -1,11 +1,12 @@
 module Movies exposing (..)
 import Browser
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Http
 
 -- model
 type Model
-  = Failure 
+  = Failure Http.Error
   | Loading 
   | Success String
   
@@ -32,15 +33,17 @@ update msg _ =
         Ok data ->
           (Success data, Cmd.none)
 
-        Err _ ->
-          (Failure, Cmd.none)
+        Err error ->
+          (Failure error, Cmd.none)
 
 -- view function
 view : Model -> Html Msg
 view model =
   case model of
-    Failure ->
-      text "Error, when loading data."
+    Failure error ->
+      div[style "color" "red"] [
+        h1[style "color" "red"] [text "Error :  "], buildErrorMessage error
+        ]
     
     Loading ->
       text "Loading..."
@@ -48,23 +51,23 @@ view model =
     Success data ->
       div [] [pre [] [ text data ]]
 
-buildErrorMessage : Http.Error -> String
+buildErrorMessage : Http.Error -> Html Msg
 buildErrorMessage httpError =
     case httpError of
         Http.BadUrl message ->
-            message
+            text message
 
         Http.Timeout ->
-            "Server is taking too long to respond. Please try again later."
+           text  "Server is taking too long to respond. Please try again later."
 
         Http.NetworkError ->
-            "Unable to reach server."
+           text  "Unable to reach server."
 
         Http.BadStatus statusCode ->
-            "Request failed with status code: " ++ String.fromInt statusCode
+            text ("Request failed with status code: " ++ String.fromInt statusCode)
 
         Http.BadBody message ->
-            message
+           text  message
 
   --subscriptions
 subscriptions : Model -> Sub Msg
