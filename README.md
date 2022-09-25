@@ -9,3 +9,12 @@ Dans ce projet nous ferons comment faire des requêtes HTTP asynchrones, décode
 
 # Launch app elm
 ```elm init```
+
+# install http-server
+```npm i http-server -g``` 
+
+# launch http server in a local
+```http-server server -a localhost -p 3000```
+
+# install package elm/http
+```elm install elm/http```
