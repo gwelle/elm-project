@@ -1,20 +1,13 @@
 Liste de films palpitant
 
-    Fast and Furious : Dominic Torreto, l'homme qui est pret a tout pour sauver sa famille
-
-    James Bond : La saga est la plus longue de l'histoire du cinéma avec plus 30 films & son active
-    Mission impossible : La saga ou tous les missions d'espionnage les difficules sont réussir
-    Jason Bourne : L'agent de la CIA le plus recherché de la planéte
-
-    Top Gun : La saga parle de maverick, le pilote de chasse le plus expérimenté de L'US air force
-    Ali : Le meilleur boxeur de tous les temps
-
-    Street Dancers : Le film de Hip-hop le plus légendaire de l'histoire du cinéma
-
-    8 Miles : Ce film d'Emininem est un classique du cinéma
-
-    All eye all Me : Tupac considéré comme le meilleur rappeur de tous les temps
-
-    Notorious : Notorious BIG, considéré comme le meilleur rappeur après Tupac
-
-    Creed : Adonis Creed, le boxeur le plus prometteur de sa génération
+Fast and Furious : Dominic Torreto, l'homme qui est pret a tout pour sauver sa famille
+James Bond : La saga est la plus longue de l'histoire du cinéma avec plus 30 films & son active
+Mission impossible : La saga ou tous les missions d'espionnage les difficules sont réussir
+Jason Bourne : L'agent de la CIA le plus recherché de la planéte
+Top Gun : La saga parle de maverick, le pilote de chasse le plus expérimenté de L'US air force
+Ali : Le meilleur boxeur de tous les temps
+Street Dancers : Le film de Hip-hop le plus légendaire de l'histoire du cinéma
+8 Miles : Ce film d'Emininem est un classique du cinéma
+All eye all Me : Tupac considéré comme le meilleur rappeur de tous les temps
+Notorious : Notorious BIG, considéré comme le meilleur rappeur après Tupac
+Creed : Adonis Creed, le boxeur le plus prometteur de sa génération

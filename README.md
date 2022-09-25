@@ -10,11 +10,21 @@ Dans ce projet nous ferons comment faire des requêtes HTTP asynchrones, décode
 # Launch app elm
 ```elm init```
 
-# install http-server
+# Install http-server
 ```npm i http-server -g``` 
 
-# launch http server in a local
+# Launch http server in a local
 ```http-server server -a localhost -p 3000```
 
-# install package elm/http
+# Install package elm/http
 ```elm install elm/http```
+
+# Les problèmes de CORS
+Si le chargement des données n’a pas fonctionné, consultez votre console vous devriez avoir un problème de CORS, car si nous ne l’avons pas activé au moment de lancer le serveur local.
+
+# Solution pour résoudre le problème les CORS
+Relancer le serveur local en précisant l’option des cors --cors
+```http-server server -a localhost -p 3000 --cors```
+Si l'erreur persiste essayer un autre navigateur web (safari, mozilla, opéra ...)
+
+
