@@ -23,7 +23,7 @@ Dans ce projet nous ferons comment faire des requêtes HTTP asynchrones, décode
 Si le chargement des données n’a pas fonctionné, consultez votre console vous devriez avoir un problème de CORS, car si nous ne l’avons pas activé au moment de lancer le serveur local.
 
 # Solution pour résoudre le problème les CORS
-Relancer le serveur local en précisant l’option des cors --cors
+Relancer le serveur local en précisant l’option des cors --cors \n
 ```http-server server -a localhost -p 3000 --cors```
 Si l'erreur persiste essayer un autre navigateur web (safari, mozilla, opéra ...)
 
