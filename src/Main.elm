@@ -10,7 +10,7 @@ init =
 
 view : { a | name : String } -> Html.Html msg
 view model =
-    div [] [text "my Texte"]
+    div [] [text model.name]
 update : a -> a
 update model =
     model
