@@ -4,9 +4,6 @@ Dans ce projet nous ferons comment faire des requêtes HTTP asynchrones, décode
 # Create a file elm.json
 ```elm init```
 
-# Compile a elm file
-```elm make src/Main.elm``` par exemple
-
 # Launch app elm
 ```elm init```
 
@@ -26,3 +23,6 @@ Dans ce projet nous ferons comment faire des requêtes HTTP asynchrones, décode
 
 # compiler elm Student.elm
 ```elm make src/Student.elm```
+
+# install package json decode pipeline
+```elm install NoRedInk/elm-json-decode-pipeline```

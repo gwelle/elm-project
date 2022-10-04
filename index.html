@@ -6148,25 +6148,51 @@ var $author$project$Students$Address = F3(
 	function (street, city, zipCode) {
 		return {city: city, street: street, zipCode: zipCode};
 	});
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
 var $elm$json$Json$Decode$field = _Json_decodeField;
-var $elm$json$Json$Decode$map3 = _Json_map3;
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
+	function (key, valDecoder, decoder) {
+		return A2(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom,
+			A2($elm$json$Json$Decode$field, key, valDecoder),
+			decoder);
+	});
 var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Students$addressDecoder = A4(
-	$elm$json$Json$Decode$map3,
-	$author$project$Students$Address,
-	A2($elm$json$Json$Decode$field, 'street', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'city', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'zipCode', $elm$json$Json$Decode$string));
+var $author$project$Students$addressDecoder = A3(
+	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+	'zipCode',
+	$elm$json$Json$Decode$string,
+	A3(
+		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+		'city',
+		$elm$json$Json$Decode$string,
+		A3(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+			'street',
+			$elm$json$Json$Decode$string,
+			$elm$json$Json$Decode$succeed($author$project$Students$Address))));
 var $elm$json$Json$Decode$int = _Json_decodeInt;
-var $elm$json$Json$Decode$map5 = _Json_map5;
-var $author$project$Students$personEncoder = A6(
-	$elm$json$Json$Decode$map5,
-	$author$project$Students$Person,
-	A2($elm$json$Json$Decode$field, 'firstName', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'lastName', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'age', $elm$json$Json$Decode$int),
-	A2($elm$json$Json$Decode$field, 'phone', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'address', $author$project$Students$addressDecoder));
+var $author$project$Students$personEncoder = A3(
+	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+	'address',
+	$author$project$Students$addressDecoder,
+	A3(
+		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+		'phone',
+		$elm$json$Json$Decode$string,
+		A3(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+			'age',
+			$elm$json$Json$Decode$int,
+			A3(
+				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+				'lastName',
+				$elm$json$Json$Decode$string,
+				A3(
+					$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+					'firstName',
+					$elm$json$Json$Decode$string,
+					$elm$json$Json$Decode$succeed($author$project$Students$Person))))));
 var $author$project$Students$studentEncoder = $elm$json$Json$Decode$list($author$project$Students$personEncoder);
 var $author$project$Students$getStudents = $elm$http$Http$get(
 	{

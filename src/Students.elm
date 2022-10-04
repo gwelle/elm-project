@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Json.Decode as JSON exposing (..)
+import Json.Decode.Pipeline as Pipeline exposing (..)
 
 --Enregistrement de type Address
 type alias Address =
@@ -43,21 +44,21 @@ type Model
 --On décode les addresses du fichier json
 addressDecoder : Decoder Address
 addressDecoder =
-  JSON.map3 Address
-    (JSON.field "street" JSON.string)
-    (JSON.field "city" JSON.string)
-    (JSON.field "zipCode" JSON.string)
+  JSON.succeed Address
+        |> Pipeline.required "street" string
+        |> Pipeline.required "city" string
+        |> Pipeline.required "zipCode" string
 
 
 -- On décode le résultat de la requête HTTP en JSON avec la fonction personEncoder
 personEncoder : Decoder Person
 personEncoder = 
-  JSON.map5 Person
-    (JSON.field "firstName" JSON.string)
-    (JSON.field "lastName" JSON.string)
-    (JSON.field "age" JSON.int)
-    (JSON.field "phone" JSON.string)
-    (JSON.field "address" addressDecoder)
+  JSON.succeed Person
+        |> Pipeline.required "firstName" string
+        |> Pipeline.required "lastName" string
+        |> Pipeline.required "age" int
+        |> Pipeline.required "phone" string
+        |> Pipeline.required "address"  addressDecoder
 
 
 -- On décode le résultat de la requête HTTP en JSON avec la fonction studentEncoder
