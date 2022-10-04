@@ -21,4 +21,8 @@ Dans ce projet nous ferons comment faire des requêtes HTTP asynchrones, décode
 # launch json server in a local
 ```json-server  --watch server/db.json -p 4000```
 
+# launch app elm
+```elm reactor```
 
+# compiler elm Student.elm
+```elm make src/Student.elm```
