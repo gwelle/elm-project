@@ -7,13 +7,23 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode as JSON exposing (..)
 
+--Enregistrement de type Address
+type alias Address =
+    { street : String
+    , city : String
+    , zipCode : String
+    }
+
 --Enregistrement de type Person => les données que l'on veut récupérer uniquement du fichier json
 type alias Person =
   { firstName : String
   , lastName : String
   , age : Int
   , phone : String
+  , address : Address
   }
+
+
 -- Type personnalisé Student qui contient une liste de personnes
 type alias Student = List Person
 
@@ -30,15 +40,24 @@ type Model
   | Success Student
 
 
+--On décode les addresses du fichier json
+addressDecoder : Decoder Address
+addressDecoder =
+  JSON.map3 Address
+    (JSON.field "street" JSON.string)
+    (JSON.field "city" JSON.string)
+    (JSON.field "zipCode" JSON.string)
+
 
 -- On décode le résultat de la requête HTTP en JSON avec la fonction personEncoder
 personEncoder : Decoder Person
 personEncoder = 
-  JSON.map4 Person
+  JSON.map5 Person
     (JSON.field "firstName" JSON.string)
     (JSON.field "lastName" JSON.string)
     (JSON.field "age" JSON.int)
     (JSON.field "phone" JSON.string)
+    (JSON.field "address" addressDecoder)
 
 
 -- On décode le résultat de la requête HTTP en JSON avec la fonction studentEncoder
@@ -102,7 +121,13 @@ showStudent model =
                 th[] [text "First Name"],
                 th[] [text "Last Name"],
                 th[] [text "Age"],
-                th[] [text "Phone"]
+                th[] [text "Phone"],
+                th[] 
+                  [
+                    div[] [text "Street"],
+                    div[] [text "City"],
+                    div[] [text "Zip Code"]
+                  ]
               ]
             ],
             tbody[] (List.map showStudentRow student)
@@ -116,7 +141,13 @@ showStudentRow person =
     td[] [text person.firstName],
     td[] [text person.lastName],
     td[] [text (String.fromInt person.age)],
-    td[] [text person.phone]
+    td[] [text person.phone],
+    td[] 
+      [
+        div[] [text person.address.street],
+        div[] [text person.address.city],
+        div[] [text person.address.zipCode]
+      ]
   ]     
       
 

@@ -6140,21 +6140,33 @@ var $elm$http$Http$get = function (r) {
 		{body: $elm$http$Http$emptyBody, expect: r.expect, headers: _List_Nil, method: 'GET', timeout: $elm$core$Maybe$Nothing, tracker: $elm$core$Maybe$Nothing, url: r.url});
 };
 var $elm$json$Json$Decode$list = _Json_decodeList;
-var $author$project$Students$Person = F4(
-	function (firstName, lastName, age, phone) {
-		return {age: age, firstName: firstName, lastName: lastName, phone: phone};
+var $author$project$Students$Person = F5(
+	function (firstName, lastName, age, phone, address) {
+		return {address: address, age: age, firstName: firstName, lastName: lastName, phone: phone};
+	});
+var $author$project$Students$Address = F3(
+	function (street, city, zipCode) {
+		return {city: city, street: street, zipCode: zipCode};
 	});
 var $elm$json$Json$Decode$field = _Json_decodeField;
-var $elm$json$Json$Decode$int = _Json_decodeInt;
-var $elm$json$Json$Decode$map4 = _Json_map4;
+var $elm$json$Json$Decode$map3 = _Json_map3;
 var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Students$personEncoder = A5(
-	$elm$json$Json$Decode$map4,
+var $author$project$Students$addressDecoder = A4(
+	$elm$json$Json$Decode$map3,
+	$author$project$Students$Address,
+	A2($elm$json$Json$Decode$field, 'street', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'city', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'zipCode', $elm$json$Json$Decode$string));
+var $elm$json$Json$Decode$int = _Json_decodeInt;
+var $elm$json$Json$Decode$map5 = _Json_map5;
+var $author$project$Students$personEncoder = A6(
+	$elm$json$Json$Decode$map5,
 	$author$project$Students$Person,
 	A2($elm$json$Json$Decode$field, 'firstName', $elm$json$Json$Decode$string),
 	A2($elm$json$Json$Decode$field, 'lastName', $elm$json$Json$Decode$string),
 	A2($elm$json$Json$Decode$field, 'age', $elm$json$Json$Decode$int),
-	A2($elm$json$Json$Decode$field, 'phone', $elm$json$Json$Decode$string));
+	A2($elm$json$Json$Decode$field, 'phone', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'address', $author$project$Students$addressDecoder));
 var $author$project$Students$studentEncoder = $elm$json$Json$Decode$list($author$project$Students$personEncoder);
 var $author$project$Students$getStudents = $elm$http$Http$get(
 	{
@@ -6255,6 +6267,33 @@ var $author$project$Students$showStudentRow = function (person) {
 				_List_fromArray(
 					[
 						$elm$html$Html$text(person.phone)
+					])),
+				A2(
+				$elm$html$Html$td,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(person.address.street)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(person.address.city)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(person.address.zipCode)
+							]))
 					]))
 			]));
 };
@@ -6339,6 +6378,33 @@ var $author$project$Students$showStudent = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$text('Phone')
+													])),
+												A2(
+												$elm$html$Html$th,
+												_List_Nil,
+												_List_fromArray(
+													[
+														A2(
+														$elm$html$Html$div,
+														_List_Nil,
+														_List_fromArray(
+															[
+																$elm$html$Html$text('Street')
+															])),
+														A2(
+														$elm$html$Html$div,
+														_List_Nil,
+														_List_fromArray(
+															[
+																$elm$html$Html$text('City')
+															])),
+														A2(
+														$elm$html$Html$div,
+														_List_Nil,
+														_List_fromArray(
+															[
+																$elm$html$Html$text('Zip Code')
+															]))
 													]))
 											]))
 									])),
