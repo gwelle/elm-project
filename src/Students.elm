@@ -42,6 +42,7 @@ type Model
 
 
 --On décode les addresses du fichier json
+-- Utilisation des fonctions succeed associées à la fonction required
 addressDecoder : Decoder Address
 addressDecoder =
   JSON.succeed Address
@@ -51,12 +52,18 @@ addressDecoder =
 
 
 -- On décode le résultat de la requête HTTP en JSON avec la fonction personEncoder
+-- Utilisation des fonctions succeed associées à la fonction required
 personEncoder : Decoder Person
 personEncoder = 
   JSON.succeed Person
         |> Pipeline.required "firstName" string
         |> Pipeline.required "lastName" string
-        |> Pipeline.required "age" int
+
+         -- On utilise la fonction optional pour que l'age soit optionnel
+        |> Pipeline.optional "age" int 18
+        -- Équivalent à la ligne précédente, mais d'une manière plus explicite
+        |> Pipeline.optional "age" (JSON.oneOf [ int, null 18 ]) 18
+        
         |> Pipeline.required "phone" string
         |> Pipeline.required "address"  addressDecoder
 

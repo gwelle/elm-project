@@ -4,7 +4,6 @@
         "id": 1,
         "firstName": "Guillaume",
         "lastName": "WELLE",
-        "age": 18,
         "phone": "0612345678",
         "address": {
           "street": "29 Rue de la Paix",
@@ -28,7 +27,7 @@
         "id": 3,
         "firstName": "Bérenger",
         "lastName": "PIEDAGNEL",
-        "age": 18,
+        "age": null,
         "phone": "0714504830",
         "address": {
           "street": "48 Rue de la Paix",
