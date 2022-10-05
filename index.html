@@ -6140,9 +6140,9 @@ var $elm$http$Http$get = function (r) {
 		{body: $elm$http$Http$emptyBody, expect: r.expect, headers: _List_Nil, method: 'GET', timeout: $elm$core$Maybe$Nothing, tracker: $elm$core$Maybe$Nothing, url: r.url});
 };
 var $elm$json$Json$Decode$list = _Json_decodeList;
-var $author$project$Students$Person = F5(
-	function (firstName, lastName, age, phone, address) {
-		return {address: address, age: age, firstName: firstName, lastName: lastName, phone: phone};
+var $author$project$Students$Person = F6(
+	function (firstName, lastName, age, phone, school, address) {
+		return {address: address, age: age, firstName: firstName, lastName: lastName, phone: phone, school: school};
 	});
 var $author$project$Students$Address = F3(
 	function (street, city, zipCode) {
@@ -6171,15 +6171,16 @@ var $author$project$Students$addressDecoder = A3(
 			'street',
 			$elm$json$Json$Decode$string,
 			$elm$json$Json$Decode$succeed($author$project$Students$Address))));
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded = A2($elm$core$Basics$composeR, $elm$json$Json$Decode$succeed, $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom);
 var $elm$json$Json$Decode$int = _Json_decodeInt;
+var $elm$json$Json$Decode$null = _Json_decodeNull;
+var $elm$json$Json$Decode$oneOf = _Json_oneOf;
 var $elm$json$Json$Decode$andThen = _Json_andThen;
 var $elm$json$Json$Decode$at = F2(
 	function (fields, decoder) {
 		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
 	});
 var $elm$json$Json$Decode$decodeValue = _Json_run;
-var $elm$json$Json$Decode$null = _Json_decodeNull;
-var $elm$json$Json$Decode$oneOf = _Json_oneOf;
 var $elm$json$Json$Decode$value = _Json_decodeValue;
 var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$optionalDecoder = F3(
 	function (path, valDecoder, fallback) {
@@ -6233,24 +6234,32 @@ var $author$project$Students$personEncoder = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 	'address',
 	$author$project$Students$addressDecoder,
-	A3(
-		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-		'phone',
-		$elm$json$Json$Decode$string,
-		A4(
-			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$optional,
-			'age',
-			$elm$json$Json$Decode$int,
-			18,
-			A3(
-				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-				'lastName',
-				$elm$json$Json$Decode$string,
+	A2(
+		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
+		'ESGI',
+		A3(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+			'phone',
+			$elm$json$Json$Decode$string,
+			A4(
+				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$optional,
+				'age',
+				$elm$json$Json$Decode$oneOf(
+					_List_fromArray(
+						[
+							$elm$json$Json$Decode$int,
+							$elm$json$Json$Decode$null(18)
+						])),
+				18,
 				A3(
 					$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-					'firstName',
+					'lastName',
 					$elm$json$Json$Decode$string,
-					$elm$json$Json$Decode$succeed($author$project$Students$Person))))));
+					A3(
+						$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+						'firstName',
+						$elm$json$Json$Decode$string,
+						$elm$json$Json$Decode$succeed($author$project$Students$Person)))))));
 var $author$project$Students$studentEncoder = $elm$json$Json$Decode$list($author$project$Students$personEncoder);
 var $author$project$Students$getStudents = $elm$http$Http$get(
 	{
@@ -6351,6 +6360,13 @@ var $author$project$Students$showStudentRow = function (person) {
 				_List_fromArray(
 					[
 						$elm$html$Html$text(person.phone)
+					])),
+				A2(
+				$elm$html$Html$td,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(person.school)
 					])),
 				A2(
 				$elm$html$Html$td,
@@ -6462,6 +6478,13 @@ var $author$project$Students$showStudent = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$text('Phone')
+													])),
+												A2(
+												$elm$html$Html$th,
+												_List_Nil,
+												_List_fromArray(
+													[
+														$elm$html$Html$text('school')
 													])),
 												A2(
 												$elm$html$Html$th,

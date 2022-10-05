@@ -21,6 +21,7 @@ type alias Person =
   , lastName : String
   , age : Int
   , phone : String
+  , school : String
   , address : Address
   }
 
@@ -60,12 +61,19 @@ personEncoder =
         |> Pipeline.required "lastName" string
 
          -- On utilise la fonction optional pour que l'age soit optionnel
-        |> Pipeline.optional "age" int 18
+        --|> Pipeline.optional "age" int 18
+        
         -- Équivalent à la ligne précédente, mais d'une manière plus explicite
         |> Pipeline.optional "age" (JSON.oneOf [ int, null 18 ]) 18
-        
+
         |> Pipeline.required "phone" string
-        |> Pipeline.required "address"  addressDecoder
+
+        -- On utilise la fonction hardcoded pour que l'école soit toujours la même
+        |> Pipeline.hardcoded "ESGI"
+
+       |> Pipeline.required "address"  addressDecoder
+
+        
 
 
 -- On décode le résultat de la requête HTTP en JSON avec la fonction studentEncoder
@@ -130,6 +138,7 @@ showStudent model =
                 th[] [text "Last Name"],
                 th[] [text "Age"],
                 th[] [text "Phone"],
+                th[] [text "school"],
                 th[] 
                   [
                     div[] [text "Street"],
@@ -150,6 +159,7 @@ showStudentRow person =
     td[] [text person.lastName],
     td[] [text (String.fromInt person.age)],
     td[] [text person.phone],
+    td[] [text person.school],
     td[] 
       [
         div[] [text person.address.street],
