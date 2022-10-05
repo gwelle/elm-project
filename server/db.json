@@ -4,6 +4,7 @@
       "id": 1,
       "firstName": "Guillaume",
       "lastName": "WELLE",
+      "age": 18,
       "phone": "0612345678",
       "school" : "",
       "address": {
@@ -16,7 +17,7 @@
       "id": 2,
       "firstName": "Jules",
       "lastName": "GABIAM",
-      "age": 23,
+      "age": 20,
       "phone": "0628345670",
       "school" : "",
       "address": {
@@ -29,7 +30,7 @@
       "id": 3,
       "firstName": "Bérenger",
       "lastName": "PIEDAGNEL",
-      "age": null,
+      "age": 18,
       "phone": "0714504830",
       "school" : "",
       "address": {
@@ -42,7 +43,7 @@
       "id": 4,
       "firstName": "Pierre",
       "lastName": "RIBAULT",
-      "age": 27,
+      "age": 21,
       "phone": "0711405430",
       "school" : "",
       "address": {

@@ -55,23 +55,36 @@ addressDecoder =
 -- On décode le résultat de la requête HTTP en JSON avec la fonction personEncoder
 -- Utilisation des fonctions succeed associées à la fonction required
 personEncoder : Decoder Person
-personEncoder = 
-  JSON.succeed Person
-        |> Pipeline.required "firstName" string
-        |> Pipeline.required "lastName" string
-
-         -- On utilise la fonction optional pour que l'age soit optionnel
-        --|> Pipeline.optional "age" int 18
+personEncoder =
+    let
         
-        -- Équivalent à la ligne précédente, mais d'une manière plus explicite
-        |> Pipeline.optional "age" (JSON.oneOf [ int, null 18 ]) 18
+        toDecoder : String -> String -> Int -> String -> String -> Address ->  Decoder Person
+        toDecoder firstName lastName age phone school address =
+            if age <= 20 then
+                JSON.succeed (Person firstName lastName age phone school address)
 
-        |> Pipeline.required "phone" string
+            else
+                fail "This JSON contains a person who is older than 20 years old"
+    in
+        JSON.succeed toDecoder
+          |> Pipeline.required "firstName" string
+          |> Pipeline.required "lastName" string
 
-        -- On utilise la fonction hardcoded pour que l'école soit toujours la même
-        |> Pipeline.hardcoded "ESGI"
+          -- On utilise la fonction optional pour que l'age soit optionnel
+          --|> Pipeline.optional "age" int 18
+          
+          -- Équivalent à la ligne précédente, mais d'une manière plus explicite
+          |> Pipeline.optional "age" (JSON.oneOf [ int, null 18 ]) 18
 
-       |> Pipeline.required "address"  addressDecoder
+          |> Pipeline.required "phone" string
+
+          -- On utilise la fonction hardcoded pour que l'école soit toujours la même
+          |> Pipeline.hardcoded "ESGI"
+
+          |> Pipeline.required "address"  addressDecoder
+          |> Pipeline.resolve
+
+
 
         
 
